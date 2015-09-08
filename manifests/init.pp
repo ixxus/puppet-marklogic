@@ -55,7 +55,7 @@ class marklogic (
   $version,
 ) {
 
-  class { 'marklogic':
+  class { 'marklogic::marklogic':
     version               => $version,
     disable_ec2_detection => $disable_ec2_detection,
   }
