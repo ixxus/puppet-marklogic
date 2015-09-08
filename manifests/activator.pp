@@ -85,7 +85,13 @@ class marklogic::activator (
   $security_upgrade_cmd = "${wget} ${http_auth} \"${server_url}/security-upgrade-go.xqy?ok=ok&ok.x=18&ok.y=17\" > /dev/null"
   $restart_service_cmd = '/sbin/service MarkLogic restart; /bin/sleep 5'
 
-  if ($version =~ /^7/) {
+  if ($version =~ /^8/) {
+    if $is_upgrade {
+      include marklogic::version::8::upgrade
+    } else {
+      include marklogic::version::8::install
+    }
+  } elsif ($version =~ /^7/) {
     if $is_upgrade {
       include marklogic::version::7::upgrade
     } else {
@@ -98,6 +104,6 @@ class marklogic::activator (
       include marklogic::version::6::install
     }
   } else {
-    fail()
+    fail("MarkLogic version ${version} is not supported by the puppet module")
   }
 }

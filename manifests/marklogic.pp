@@ -71,7 +71,7 @@ class marklogic::marklogic (
         refreshonly => true,
         subscribe   => Package['MarkLogic'],
       }
-    } elsif ($version =~ /^7/) {
+    } elsif ($version =~ /^7/ || $version =~ /^8/) {
       # MarkLogic V7 on EC2 requires Java, but not to run. Unknown what for, but
       # it's used highly in /opt/MarkLogic/mlcmd/bin/mlcmd. It seems to only be
       # needed if using EC2 optimization. To disable EC2 detection and get running
@@ -88,7 +88,7 @@ class marklogic::marklogic (
         replace => false,
       }
     } else {
-      fail()
+      fail("MarkLogic version ${version} is not supported by the puppet module")
     }
   }
 
