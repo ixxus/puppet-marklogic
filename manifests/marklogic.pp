@@ -40,6 +40,7 @@ class marklogic::marklogic (
 
   $prerequisite_packages = [
     'gdb',
+    'glibc.i686',
     'glibc-devel.i686',
     'glibc-devel.x86_64',
     'redhat-lsb',
