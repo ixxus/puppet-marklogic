@@ -50,6 +50,8 @@ class marklogic (
   $disable_ec2_detection  = false,
   $is_development_license = false,
   $is_upgrade             = false,
+  $tmpDir                 = '/tmp',
+  $artifactsPath          = undef,
   $licensee,
   $license_key,
   $version,
@@ -58,6 +60,8 @@ class marklogic (
   class { 'marklogic::marklogic':
     version               => $version,
     disable_ec2_detection => $disable_ec2_detection,
+    tmpDir                => $tmpDir,
+    artifactsPath         => $artifactsPath,
   }
 
   class { 'marklogic::activator':

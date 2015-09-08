@@ -26,6 +26,8 @@
 class marklogic::marklogic (
   $version,
   $disable_ec2_detection = false,
+  $tmpDir                = '/tmp',
+  $artifactsPath         = undef,
 ) {
   firewall { '102 allow marklogic':
     action => accept,
@@ -48,11 +50,29 @@ class marklogic::marklogic (
     provider => yum,
   }
 
-  package { 'MarkLogic':
-    ensure   => $version,
-    notify   => Class['marklogic::activator'],
-    provider => yum,
-    require  => Package[$prerequisite_packages],
+  if ($artifactsPath) {
+    $rpmFileName = "MarkLogic-${version}.x86_64.rpm"
+
+    file { "${tmpDir}/${rpmFileName}":
+      ensure => present,
+      source => "${artifactsPath}/${rpmFileName}",
+    }
+
+    package { 'MarkLogic':
+      ensure   => $version,
+      source   => "${tmpDir}/${rpmFileName}",
+      provider => 'rpm',
+      notify   => Class['marklogic::activator'],
+      require  => [Package[$prerequisite_packages], File["${tmpDir}/${rpmFileName}"]],
+    }
+
+  } else {
+    package { 'MarkLogic':
+      ensure   => $version,
+      notify   => Class['marklogic::activator'],
+      provider => yum,
+      require  => Package[$prerequisite_packages],
+    }
   }
 
   if $disable_ec2_detection {
