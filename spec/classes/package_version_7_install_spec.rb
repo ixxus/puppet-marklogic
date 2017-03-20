@@ -11,10 +11,10 @@ describe 'marklogic' do
 
   it { should have_class_count(4) }
 
-  it { should_not contain_class('marklogic::version::6::install') }
-  it { should_not contain_class('marklogic::version::6::upgrade') }
-  it { should     contain_class('marklogic::version::7::install') }
-  it { should_not contain_class('marklogic::version::7::upgrade') }
+  it { should_not contain_class('marklogic::version::v6::install') }
+  it { should_not contain_class('marklogic::version::v6::upgrade') }
+  it { should     contain_class('marklogic::version::v7::install') }
+  it { should_not contain_class('marklogic::version::v7::upgrade') }
 
   it { should contain_service('MarkLogic').with_ensure('running').with_enable('true') }
   it { should_not contain_exec('fubar ML6 ec2 detection') }

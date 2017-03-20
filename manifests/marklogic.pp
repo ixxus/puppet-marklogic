@@ -46,10 +46,10 @@ class marklogic::marklogic (
     'redhat-lsb',
   ]
 
-  package { $prerequisite_packages:
-    ensure   => present,
-    provider => yum,
-  }
+  ensure_packages($prerequisite_packages, {
+    'ensure'   => 'present',
+    'provider' => 'yum',
+  })
 
   if ($artifactsPath) {
     $rpmFileName = "MarkLogic-${version}.x86_64.rpm"

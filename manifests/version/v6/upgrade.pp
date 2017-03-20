@@ -1,4 +1,4 @@
-# == class Marklogic::version::6::upgrade
+# == class marklogic::version::v6::upgrade
 #
 # This class handles the activation of MarkLogic version 6 as an upgrade.
 #
@@ -16,7 +16,7 @@
 #
 # Marcus Young <myoung34@my.apsu.edu>
 #
-class marklogic::version::6::upgrade inherits marklogic::activator {
+class marklogic::version::v6::upgrade inherits marklogic::activator {
   exec { 'manually_restart_service':
     command     => $restart_service_cmd,
     notify      => Exec['accept_license'],

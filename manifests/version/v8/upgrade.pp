@@ -1,4 +1,4 @@
-# == class Marklogic::version::8::upgrade
+# == class marklogic::version::v8::upgrade
 #
 # This class handles the activation of MarkLogic version 8 as an upgrade.
 #
@@ -16,7 +16,7 @@
 #
 # Marcus Young <myoung34@my.apsu.edu>
 #
-class marklogic::version::8::upgrade inherits marklogic::activator {
+class marklogic::version::v8::upgrade inherits marklogic::activator {
   exec { 'upgrade_databases':
     command     => $security_upgrade_cmd,
     notify      => Exec['manually_restart_service'],

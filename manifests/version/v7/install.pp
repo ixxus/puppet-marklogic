@@ -1,4 +1,4 @@
-# == class Marklogic::version::7::install
+# == class marklogic::version::v7::install
 #
 # This class handles the activation of MarkLogic version 7 as a base install.
 #
@@ -16,7 +16,7 @@
 #
 # Marcus Young <myoung34@my.apsu.edu>
 #
-class marklogic::version::7::install inherits marklogic::activator {
+class marklogic::version::v7::install inherits marklogic::activator {
   exec { 'initialize':
     command     => $initialize_cmd,
     notify      => Exec['manually_restart_service'],

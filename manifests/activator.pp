@@ -87,21 +87,21 @@ class marklogic::activator (
 
   if ($version =~ /^8/) {
     if $is_upgrade {
-      include marklogic::version::8::upgrade
+      include marklogic::version::v8::upgrade
     } else {
-      include marklogic::version::8::install
+      include marklogic::version::v8::install
     }
   } elsif ($version =~ /^7/) {
     if $is_upgrade {
-      include marklogic::version::7::upgrade
+      include marklogic::version::v7::upgrade
     } else {
-      include marklogic::version::7::install
+      include marklogic::version::v7::install
     }
   } elsif ($version =~ /^6/) {
     if $is_upgrade {
-      include marklogic::version::6::upgrade
+      include marklogic::version::v6::upgrade
     } else {
-      include marklogic::version::6::install
+      include marklogic::version::v6::install
     }
   } else {
     fail("MarkLogic version ${version} is not supported by the puppet module")

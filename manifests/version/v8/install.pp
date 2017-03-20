@@ -1,6 +1,6 @@
-# == class Marklogic::version::6::install
+# == class marklogic::version::v8::install
 #
-# This class handles the activation of MarkLogic version 6 as a base install.
+# This class handles the activation of MarkLogic version 8 as a base install.
 #
 # === Requires
 #  [*puppetlabs-stdlib*](https://github.com/puppetlabs/puppetlabs-stdlib)
@@ -16,9 +16,9 @@
 #
 # Marcus Young <myoung34@my.apsu.edu>
 #
-class marklogic::version::6::install inherits marklogic::activator {
-  exec { 'enter_license':
-    command     => $license_cmd,
+class marklogic::version::v8::install inherits marklogic::activator {
+  exec { 'initialize':
+    command     => $initialize_cmd,
     notify      => Exec['manually_restart_service'],
     path        => $::path,
     refreshonly => true,
@@ -26,30 +26,24 @@ class marklogic::version::6::install inherits marklogic::activator {
   }
   exec { 'manually_restart_service':
     command     => $restart_service_cmd,
-    notify      => Exec['accept_license'],
+    notify      => Exec['join_cluster'],
     path        => $::path,
     refreshonly => true,
   }
-  exec { 'accept_license':
-    command     => $accept_cmd,
-    notify      => Exec['initialize'],
-    path        => $::path,
-    refreshonly => true,
-  }
-  exec { 'initialize':
-    command     => $initialize_cmd,
-    notify      => Exec['manually_restart_service_again'],
-    path        => $::path,
-    refreshonly => true,
-  }
-  exec { 'manually_restart_service_again':
-    command     => $restart_service_cmd,
+  exec { 'join_cluster':
+    command     => $join_cmd,
     notify      => Exec['install_security_db'],
     path        => $::path,
     refreshonly => true,
   }
   exec { 'install_security_db':
     command     => $security_cmd,
+    notify      => Exec['enter_license'],
+    path        => $::path,
+    refreshonly => true,
+  }
+  exec { 'enter_license':
+    command     => $license_cmd,
     path        => $::path,
     refreshonly => true,
   }
