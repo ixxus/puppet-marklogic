@@ -1,5 +1,6 @@
 pkg/
 .tmp/
+.history/
 pkg/
 spec/fixtures/
 .rspec_system/
